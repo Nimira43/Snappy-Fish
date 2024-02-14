@@ -17,7 +17,12 @@ class Game {
         this.canvas.addEventListener('mousedown', e => {
             this.player.flap()
         })
-
+        window.addEventListener('keydown', e => {
+            if (e.key === ' ' || e.key === 'Enter') this.player.flap()
+        })
+        this.canvas.addEventListener('touchstart', e => {
+            this.player.flap()
+        })
     }
     resize(width, height) {
         this.canvas.width = width
