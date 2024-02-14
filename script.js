@@ -4,10 +4,27 @@ class Game {
         this.ctx = context
         this.width = this.canvas.width
         this.height = this.canvas.height
+        this.baseHeight = 720
+        this.ratio = this.height / this.baseHeight
         this.player = new Player(this)
+
+        this.resize(window.innerWidth, window.innerHeight)
+        
+        window.addEventListener('resize', e => {
+            this.resize(e.currentTarget.innerWidth, e.currentTarget.innerHeight)
+        })
     }
-    render() {
+    resize(width, height) {
+        this.canvas.width = width
+        this.canvas.height = height
         this.ctx.fillStyle = 'red'
+        this.width = this.canvas.width
+        this.height = this.canvas.height
+        this.ratio = this.height / this.baseHeight
+        this.player.resize()
+    }
+
+    render() {
         this.player.update()
         this.player.draw()
     }
@@ -18,6 +35,7 @@ window.addEventListener('load', function() {
     const ctx = canvas.getContext('2d')
     canvas.width = 720
     canvas.height = 720
+
     const game = new Game(canvas, ctx)
     
     function animate() {
